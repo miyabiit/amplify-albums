@@ -12,7 +12,7 @@
       <tr v-for"(photo, index) in album.photos.items" :key="photo.id">
         <td>{{ photo.name }}</td>
         <td>
-          ここに画像表示
+          <amplify-s3-image :img-key="photo.s3key" level="private" />
         </td>
         <td>
           <button @click="deletePhoto(index, photo)">Delete Photo</button>
@@ -26,6 +26,7 @@
   import { API } from "aws-amplify"
   import { getAlbum } from "../../graphql/queries"
   import { deletePhoto } from "../../graphql/mutations"
+  import { Storage } from "aws-amplify"
   
   export default {
     name: "AlbumShow",
@@ -59,7 +60,16 @@
       },
       async deletePhoto(index, photo) {
         if(!confirm("Delete Photo?")) return
-        
+        await Storage.remove(photo.s3key, {
+          level: "private",
+        })
+          .then((result) => {
+            console.log(result)
+          })
+          .catch((error) => {
+            console.log(error)
+          })
+          
         await API.graphql({
           query: deletePhoto,
           variables: {input: { id: photo.id }}
@@ -75,3 +85,9 @@
     },
   }
 </script>
+
+<style scoped>
+  amplify-s3-image {
+    height: 100px;
+  }
+</style>
