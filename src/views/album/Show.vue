@@ -9,7 +9,7 @@
       <button @click="navigate">Add Photo</button>
     </router-link>
     <table border="1">
-      <tr v-for"(photo, index) in album.photos.items" :key="photo.id">
+      <tr v-for="(photo, index) in album.photos.items" :key="photo.id">
         <td>{{ photo.name }}</td>
         <td>
           <amplify-s3-image :img-key="photo.s3key" level="private" />

@@ -24,7 +24,7 @@
           </router-link>
         </td>
         <td>
-          <button @click="deleteAlbum(index, album.id">
+          <button @click="deleteAlbum(index, album.id)">
             Delete Album 
           </button>
         </td>
