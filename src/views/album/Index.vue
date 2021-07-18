@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>アルバム一覧</h1>
-    <router-link custom v-slot="{navigate}" :to="{name: 'AlbumCreate' }">
+    <router-link custom v-slot="{ navigate }" :to="{ name: 'AlbumCreate' }">
       <button @click="navigate">Add Album</button>
     </router-link>
     <table border="1">
